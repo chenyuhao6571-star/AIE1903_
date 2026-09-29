@@ -1,0 +1,10 @@
+/data/
+/tmp/
+*.pdf
+*.pptx
+~$*
+.env
+.env.*
+!.env.example
+*.key
+*.pem

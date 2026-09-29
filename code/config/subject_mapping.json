@@ -1,0 +1,52 @@
+{
+  "synonyms": {
+    "ai": "artificial intelligence",
+    "ml": "machine learning",
+    "llm": "large language model",
+    "llms": "large language models",
+    "nlp": "natural language processing",
+    "dl": "deep learning",
+    "cv": "computer vision",
+    "hci": "human computer interaction",
+    "se": "software engineering",
+    "pl": "programming languages",
+    "db": "database",
+    "systems": "computer systems",
+    "cs": "computer science",
+    "stats": "statistics"
+  },
+  "clusters": [
+    {
+      "name": "Computer Science",
+      "keywords": ["computer science", "computing", "software engineering", "programming languages", "information technology", "informatics"]
+    },
+    {
+      "name": "Artificial Intelligence",
+      "keywords": ["artificial intelligence", "machine learning", "deep learning", "natural language processing", "large language model", "computer vision", "ai agents", "data science", "robotics"]
+    },
+    {
+      "name": "Statistics",
+      "keywords": ["statistics", "biostatistics", "data science", "data analytics"]
+    },
+    {
+      "name": "Business and Economics",
+      "keywords": ["business", "economics", "finance", "accounting", "marketing", "management"]
+    },
+    {
+      "name": "Engineering",
+      "keywords": ["engineering", "mechanical engineering", "electrical engineering", "electronic engineering", "civil engineering", "chemical engineering"]
+    },
+    {
+      "name": "Mathematics",
+      "keywords": ["mathematics", "applied mathematics", "pure mathematics"]
+    }
+  ],
+  "primary_subject_for_cluster": {
+    "Computer Science": "Computer Science",
+    "Artificial Intelligence": "Computer Science",
+    "Statistics": "Statistics",
+    "Business and Economics": "Business & Economics",
+    "Engineering": "Engineering",
+    "Mathematics": "Mathematics"
+  }
+}

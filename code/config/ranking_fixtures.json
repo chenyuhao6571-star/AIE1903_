@@ -1,0 +1,122 @@
+[
+  {
+    "institution": "Stanford University",
+    "provider": "QS",
+    "ranking_type": "overall",
+    "subject": null,
+    "ranking_year": 2026,
+    "rank": 3,
+    "total_ranked": 1500,
+    "raw_score": null,
+    "source_url": "https://www.topuniversities.com/world-university-rankings",
+    "retrieved_at": "2026-09-23"
+  },
+  {
+    "institution": "Stanford University",
+    "provider": "THE",
+    "ranking_type": "overall",
+    "subject": null,
+    "ranking_year": 2026,
+    "rank": 6,
+    "total_ranked": 1900,
+    "raw_score": null,
+    "source_url": "https://www.timeshighereducation.com/world-university-rankings",
+    "retrieved_at": "2026-09-23"
+  },
+  {
+    "institution": "Stanford University",
+    "provider": "ARWU",
+    "ranking_type": "overall",
+    "subject": null,
+    "ranking_year": 2025,
+    "rank": 2,
+    "total_ranked": 1000,
+    "raw_score": null,
+    "source_url": "https://www.shanghairanking.com/rankings/arwu/2025",
+    "retrieved_at": "2026-09-23"
+  },
+  {
+    "institution": "Stanford University",
+    "provider": "QS",
+    "ranking_type": "subject",
+    "subject": "Computer Science",
+    "ranking_year": 2026,
+    "rank": 2,
+    "total_ranked": 600,
+    "raw_score": null,
+    "source_url": "https://www.topuniversities.com/university-subject-rankings/computer-science",
+    "retrieved_at": "2026-09-23"
+  },
+  {
+    "institution": "Massachusetts Institute of Technology",
+    "provider": "QS",
+    "ranking_type": "overall",
+    "subject": null,
+    "ranking_year": 2026,
+    "rank": 1,
+    "total_ranked": 1500,
+    "raw_score": null,
+    "source_url": "https://www.topuniversities.com/world-university-rankings",
+    "retrieved_at": "2026-09-23"
+  },
+  {
+    "institution": "Massachusetts Institute of Technology",
+    "provider": "QS",
+    "ranking_type": "subject",
+    "subject": "Computer Science",
+    "ranking_year": 2026,
+    "rank": 1,
+    "total_ranked": 600,
+    "raw_score": null,
+    "source_url": "https://www.topuniversities.com/university-subject-rankings/computer-science",
+    "retrieved_at": "2026-09-23"
+  },
+  {
+    "institution": "The Hong Kong University of Science and Technology",
+    "provider": "QS",
+    "ranking_type": "overall",
+    "subject": null,
+    "ranking_year": 2026,
+    "rank": 47,
+    "total_ranked": 1500,
+    "raw_score": null,
+    "source_url": "https://www.topuniversities.com/world-university-rankings",
+    "retrieved_at": "2026-09-23"
+  },
+  {
+    "institution": "The Hong Kong University of Science and Technology",
+    "provider": "QS",
+    "ranking_type": "subject",
+    "subject": "Computer Science",
+    "ranking_year": 2026,
+    "rank": 31,
+    "total_ranked": 600,
+    "raw_score": null,
+    "source_url": "https://www.topuniversities.com/university-subject-rankings/computer-science",
+    "retrieved_at": "2026-09-23"
+  },
+  {
+    "institution": "University of Chinese Academy of Sciences",
+    "provider": "ARWU",
+    "ranking_type": "overall",
+    "subject": null,
+    "ranking_year": 2025,
+    "rank": 68,
+    "total_ranked": 1000,
+    "raw_score": null,
+    "source_url": "https://www.shanghairanking.com/rankings/arwu/2025",
+    "retrieved_at": "2026-09-23"
+  },
+  {
+    "institution": "Shandong University",
+    "provider": "QS",
+    "ranking_type": "overall",
+    "subject": null,
+    "ranking_year": 2026,
+    "rank": 360,
+    "total_ranked": 1500,
+    "raw_score": null,
+    "source_url": "https://www.topuniversities.com/world-university-rankings",
+    "retrieved_at": "2026-09-23"
+  }
+]

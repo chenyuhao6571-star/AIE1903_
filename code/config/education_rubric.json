@@ -1,0 +1,117 @@
+{
+  "rubric_version": "education_v1.0",
+  "score_range": {
+    "min": 0,
+    "max": 10
+  },
+  "components": {
+    "degree_level": {
+      "weight": 0.15,
+      "label": "Degree Level"
+    },
+    "field_relevance": {
+      "weight": 0.25,
+      "label": "Degree / Field Relevance"
+    },
+    "overall_university_strength": {
+      "weight": 0.15,
+      "label": "Overall University Strength"
+    },
+    "subject_university_strength": {
+      "weight": 0.20,
+      "label": "Subject-Specific University Strength"
+    },
+    "dissertation_relevance": {
+      "weight": 0.10,
+      "label": "Thesis / Dissertation Relevance"
+    },
+    "academic_progression": {
+      "weight": 0.05,
+      "label": "Academic Progression"
+    },
+    "academic_honors": {
+      "weight": 0.05,
+      "label": "Academic Honors / Distinctions"
+    },
+    "additional_relevant_education": {
+      "weight": 0.05,
+      "label": "Additional Relevant Education"
+    }
+  },
+  "degree_levels": {
+    "doctorate": {
+      "level": 4,
+      "label": "Doctorate",
+      "relevant_score": 10,
+      "partial_relevant_score": 9
+    },
+    "master": {
+      "level": 3,
+      "label": "Master's",
+      "relevant_score": 7,
+      "partial_relevant_score": 5
+    },
+    "bachelor": {
+      "level": 2,
+      "label": "Bachelor's",
+      "relevant_score": 5,
+      "partial_relevant_score": 4
+    },
+    "below_bachelor": {
+      "level": 1,
+      "label": "Below Bachelor's",
+      "relevant_score": 2,
+      "partial_relevant_score": 2
+    },
+    "none": {
+      "level": 0,
+      "label": "No verifiable degree",
+      "relevant_score": 0,
+      "partial_relevant_score": 0
+    }
+  },
+  "relevance_buckets": {
+    "direct_match": {
+      "min": 10,
+      "max": 10,
+      "default": 10,
+      "label": "Direct match"
+    },
+    "very_closely_related": {
+      "min": 8,
+      "max": 9,
+      "default": 9,
+      "label": "Very closely related"
+    },
+    "related": {
+      "min": 6,
+      "max": 7,
+      "default": 7,
+      "label": "Related"
+    },
+    "some_relevance": {
+      "min": 4,
+      "max": 5,
+      "default": 5,
+      "label": "Some relevance"
+    },
+    "weak_relevance": {
+      "min": 2,
+      "max": 3,
+      "default": 2,
+      "label": "Weak relevance"
+    },
+    "unrelated": {
+      "min": 0,
+      "max": 1,
+      "default": 0,
+      "label": "Unrelated"
+    },
+    "unknown": {
+      "min": 0,
+      "max": 10,
+      "default": null,
+      "label": "Unknown / insufficient evidence"
+    }
+  }
+}

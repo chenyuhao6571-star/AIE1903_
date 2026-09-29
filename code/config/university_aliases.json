@@ -1,0 +1,24 @@
+{
+  "aliases": {
+    "mit": "Massachusetts Institute of Technology",
+    "massachusetts institute of technology": "Massachusetts Institute of Technology",
+    "stanford": "Stanford University",
+    "stanford university": "Stanford University",
+    "harvard": "Harvard University",
+    "harvard university": "Harvard University",
+    "hkust": "The Hong Kong University of Science and Technology",
+    "the hong kong university of science and technology": "The Hong Kong University of Science and Technology",
+    "hong kong university of science and technology": "The Hong Kong University of Science and Technology",
+    "ucas": "University of Chinese Academy of Sciences",
+    "university of chinese academy of sciences": "University of Chinese Academy of Sciences",
+    "shandong university": "Shandong University",
+    "uc berkeley": "University of California, Berkeley",
+    "university of california berkeley": "University of California, Berkeley",
+    "university of california, berkeley": "University of California, Berkeley"
+  },
+  "ambiguous": [
+    "university of washington",
+    "university of california",
+    "university of london"
+  ]
+}
