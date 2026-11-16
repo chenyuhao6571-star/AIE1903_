@@ -166,7 +166,7 @@ export default function EducationScore({ candidate, onSource }) {
       const result = await requestJson(`/api/education/review/${candidateId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ component, reviewer_score: reviewerScore, reason: reason || undefined }),
+        body: JSON.stringify({ component, reviewer_score: reviewerScore, reason: reason || undefined, version: assessment?.version }),
       });
       setAssessment(result);
       setEditingComponent(null);
@@ -225,6 +225,7 @@ export default function EducationScore({ candidate, onSource }) {
           <div><span>Evidence quality</span><strong>{QUALITY_META[assessment.evidence_quality] || assessment.evidence_quality}</strong></div>
           <div><span>Position</span><strong>{assessment.position_title || '\u2014'}</strong></div>
           <div><span>Rubric</span><strong>{assessment.rubric_version}</strong></div>
+            {assessment.version != null && <div><span>Version</span><strong>v{assessment.version}</strong></div>}
           {score?.external_evidence_incomplete && <div className="summary-warning"><ShieldAlert size={14} /> External ranking evidence is incomplete.</div>}
         </div>
       </section>
@@ -236,6 +237,8 @@ export default function EducationScore({ candidate, onSource }) {
           <div className="qualification-flags">
             <span className="flag"><Check size={13} /> Minimum degree {qc?.minimum_degree_met == null ? 'not stated' : qc.minimum_degree_met ? 'met' : 'not met'}</span>
             <span className="flag"><Check size={13} /> Field requirement {qc?.field_requirement_met == null ? 'not stated' : qc.field_requirement_met ? 'met' : 'not met'}</span>
+            {qc?.in_progress_degree && <span className="flag"><X size={13} /> In progress: {qc.in_progress_degree} (not yet awarded)</span>}
+            {qc?.preferred_degree && <span className="flag"><ArrowUpRight size={13} /> Preferred degree: {qc.preferred_degree}</span>}
           </div>
           <h4 className="report-eyebrow">Evidence</h4>
           <EvidenceList evidence={qc?.evidence} onSource={onSource} />

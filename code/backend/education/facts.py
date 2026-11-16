@@ -22,6 +22,29 @@ def _extract_years(period: str | None) -> tuple[int | None, int | None]:
 
 
 def _infer_field(education: Education) -> str | None:
+    # 1) Explicit degree-name field, e.g. "PhD in Computer Science".
+    degree_field = re.search(
+        r"\b(?:in|of)\s+([A-Za-z][A-Za-z&\- ]{2,80}?)\s*(?:\(|,|$)",
+        (education.degree or ""),
+        re.IGNORECASE,
+    )
+    if degree_field:
+        candidate = degree_field.group(1).strip().rstrip(",;.")
+        if candidate and len(candidate.split()) <= 8:
+            lowered = candidate.lower()
+            if any(k in lowered for k in ("computer", "software", "informatics", "information technology", "computing")):
+                return "Computer Science"
+            if any(k in lowered for k in ("artificial intelligence", "machine learning")):
+                return "Computer Science"
+            if "mathematics" in lowered or "statistics" in lowered:
+                return "Mathematics" if "mathematics" in lowered else "Statistics"
+            if "engineering" in lowered:
+                return "Engineering"
+            if any(k in lowered for k in ("business", "finance", "economics", "accounting", "marketing")):
+                return "Business & Economics"
+            return candidate
+
+    # 2) Department/thesis, then keyword buckets.
     text = " ".join(filter(None, [education.department, education.thesis]))
     text = text.lower()
     if "computer" in text or "software" in text or "information" in text:

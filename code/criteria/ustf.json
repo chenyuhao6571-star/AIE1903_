@@ -1,0 +1,35 @@
+{
+  "title": "USTF",
+  "sections": [
+    {
+      "id": "education",
+      "title": "Education",
+      "max_score": 30,
+      "rules": "Use the highest explicitly completed degree only: doctorate 30, master's 20, bachelor's 10, otherwise 0. Do not infer degree completion or institutional prestige."
+    },
+    {
+      "id": "publications",
+      "title": "Publications",
+      "max_score": 25,
+      "rules": "Award 5 points per unique explicitly published or accepted peer-reviewed journal or conference paper, up to 25. Exclude preprints, submissions and duplicate entries. Do not invent citation counts or journal rankings."
+    },
+    {
+      "id": "teaching",
+      "title": "Teaching",
+      "max_score": 30,
+      "rules": "Award 5 points per distinct documented university course taught or assisted, up to 20. Add 5 points for a concrete documented assessment or feedback method used with students, and 5 for documented student mentoring. Do not count aspirations as past experience."
+    },
+    {
+      "id": "service",
+      "title": "Academic service",
+      "max_score": 10,
+      "rules": "Award 5 points per distinct documented academic service activity such as committee work, peer reviewing, event organization or community outreach, up to the section maximum. Membership alone is not an activity. Count each activity once."
+    },
+    {
+      "id": "github",
+      "title": "GitHub / Open Source",
+      "max_score": 5,
+      "rules": "Use imported GitHub snapshot evidence. Award 2 points for at least one original public repository with a documented project purpose; 2 for concrete usage, installation or reproduction instructions in its README; and 1 for an explicit connection between a repository and the candidate's documented research or teaching. Cite the repository and any supporting CV evidence. Do not award points for stars, followers, activity, or forks alone. Ownership does not establish sole authorship. With no imported or sufficient evidence, award only supported points and list the gaps; missing public data does not establish lack of ability."
+    }
+  ]
+}

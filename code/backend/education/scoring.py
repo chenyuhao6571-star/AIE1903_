@@ -40,7 +40,7 @@ def ranking_period_label(ranking_year: int | None, graduation_year: int | None) 
     return f"Current ranking ({ranking_year})"
 
 
-def _evidence(evidence_id: str, claim: str, source_type: str, source_location: str | None = None, confidence: float | None = None, verified: bool = False, source_url: str | None = None, ranking_year: int | None = None) -> Evidence:
+def _evidence(evidence_id: str, claim: str, source_type: str, source_location: str | None = None, confidence: float | None = None, verified: bool = False, source_url: str | None = None, ranking_year: int | None = None, verification_status: str = "unverified") -> Evidence:
     return Evidence(
         evidence_id=evidence_id,
         claim=claim,
@@ -50,11 +50,25 @@ def _evidence(evidence_id: str, claim: str, source_type: str, source_location: s
         verified=verified,
         source_url=source_url,
         ranking_year=ranking_year,
+        verification_status=verification_status,
     )
 
 
 def _primary_degree(facts: EducationFacts) -> Degree | None:
     ranked = sorted(facts.degrees, key=lambda d: (DEGREE_LEVELS.get(d.degree_type, 0), d.graduation_year or d.start_year or 0), reverse=True)
+    return ranked[0] if ranked else None
+
+
+def _highest_completed_degree(facts: EducationFacts) -> Degree | None:
+    """Highest degree that is actually awarded, ignoring in-progress entries."""
+    completed = [d for d in facts.degrees if d.status == "completed"]
+    ranked = sorted(completed, key=lambda d: (DEGREE_LEVELS.get(d.degree_type, 0), d.graduation_year or d.start_year or 0), reverse=True)
+    return ranked[0] if ranked else None
+
+
+def _highest_in_progress_degree(facts: EducationFacts) -> Degree | None:
+    in_progress = [d for d in facts.degrees if d.status == "in_progress"]
+    ranked = sorted(in_progress, key=lambda d: (DEGREE_LEVELS.get(d.degree_type, 0), d.start_year or 0), reverse=True)
     return ranked[0] if ranked else None
 
 
@@ -132,7 +146,9 @@ class EducationScorer:
 
     def _qualification(self, facts: EducationFacts, job: JobRequirements, degree: Degree | None, field_bucket: str) -> QualificationCheck:
         minimum_degree = (job.minimum_degree or "").strip().lower()
-        candidate_level = DEGREE_LEVELS.get(degree.degree_type if degree else "", 0)
+        completed = _highest_completed_degree(facts)
+        in_progress = _highest_in_progress_degree(facts)
+        completed_level = DEGREE_LEVELS.get(completed.degree_type if completed else "", 0)
         required_level = 0
         if any(k in minimum_degree for k in ("phd", "doctor")):
             required_level = 4
@@ -141,7 +157,7 @@ class EducationScorer:
         elif "bachelor" in minimum_degree:
             required_level = 2
 
-        minimum_met: bool | None = None if not minimum_degree else candidate_level >= required_level
+        minimum_met: bool | None = None if not minimum_degree else completed_level >= required_level
         field_met: bool | None = None
         if field_bucket == "unknown":
             field_met = None
@@ -158,25 +174,52 @@ class EducationScorer:
             status = "PARTIAL"
 
         parts = []
-        if degree:
-            parts.append(f"Highest documented degree: {degree.degree_type}" + (f" in {degree.field}" if degree.field else ""))
+        if completed:
+            parts.append(
+                f"Highest completed degree: {completed.degree_type}"
+                + (f" in {completed.field}" if completed.field else "")
+            )
         else:
-            parts.append("No verifiable degree information.")
+            parts.append("No completed degree is documented.")
+        if in_progress:
+            parts.append(
+                f"In progress: {in_progress.degree_type}"
+                + (f" in {in_progress.field}" if in_progress.field else "")
+                + ". This is not counted as an awarded degree."
+            )
         if minimum_degree:
-            parts.append(f"Job minimum degree: {job.minimum_degree}. Candidate level {'meets' if minimum_met else 'does not meet'} this requirement.")
+            benchmark = job.minimum_degree
+            if job.degree_requirement_kind == "preferred_only":
+                benchmark += " (stated as preferred, not required)"
+            parts.append(
+                f"Job minimum degree: {job.minimum_degree}. "
+                f"Candidate's awarded degree level {'meets' if minimum_met else 'does not meet'} this requirement."
+            )
+            if job.preferred_degree:
+                parts.append(f"Preferred degree: {job.preferred_degree}.")
         else:
             parts.append("Job description did not state a minimum degree.")
         if job.required_fields:
             parts.append(f"Field relevance: {relevance_label(field_bucket)}.")
         explanation = " ".join(parts)
         evidence = []
-        if degree:
+        if completed:
             evidence.append(
                 _evidence(
                     "QUAL-001",
-                    f"{degree.degree_type} from {degree.institution}",
+                    f"{completed.degree_type} from {completed.institution}",
                     "CV",
-                    source_location=", ".join(str(p) for p in degree.source_pages),
+                    source_location=", ".join(str(p) for p in completed.source_pages),
+                    confidence=0.9,
+                )
+            )
+        if in_progress:
+            evidence.append(
+                _evidence(
+                    "QUAL-002",
+                    f"In-progress {in_progress.degree_type} from {in_progress.institution} (not yet awarded)",
+                    "CV",
+                    source_location=", ".join(str(p) for p in in_progress.source_pages),
                     confidence=0.9,
                 )
             )
@@ -186,6 +229,8 @@ class EducationScorer:
             status=status,
             explanation=explanation,
             evidence=evidence,
+            in_progress_degree=in_progress.degree_type if in_progress else None,
+            preferred_degree=job.preferred_degree,
         )
 
     def _degree_level(self, degree: Degree | None, field_bucket: str, facts: EducationFacts) -> ComponentScore:
@@ -197,8 +242,9 @@ class EducationScorer:
         else:
             relevant = field_bucket in ("direct_match", "very_closely_related", "related")
             score = float(config["relevant_score"] if relevant else config["partial_relevant_score"])
+            status_note = " (in progress, not yet awarded)" if degree.status == "in_progress" else ""
             explanation = (
-                f"Highest completed degree is {degree.degree_type}"
+                f"Highest documented degree is {degree.degree_type}{status_note}"
                 + (f" in {degree.field}" if degree.field else "")
                 + f". Field relevance is {relevance_label(field_bucket)}."
             )
@@ -494,7 +540,8 @@ class EducationScorer:
                     source_url=record.source_url,
                     ranking_year=record.ranking_year,
                     confidence=0.95,
-                    verified=True,
+                    verified=False,
+                    verification_status="preset",
                 )
             )
         return evidence

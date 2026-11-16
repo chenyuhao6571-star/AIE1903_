@@ -1,0 +1,35 @@
+{
+  "title": "Assistant Professor",
+  "sections": [
+    {
+      "id": "publications",
+      "title": "Publications",
+      "max_score": 35,
+      "rules": "Award 5 points per unique explicitly published or accepted peer-reviewed journal or conference paper, up to the section maximum. Exclude submissions, preprints and duplicates. Identify unclear publication status as missing evidence. Do not infer rankings or citation counts."
+    },
+    {
+      "id": "education",
+      "title": "Education",
+      "max_score": 25,
+      "rules": "Use the highest explicitly completed degree only: doctorate 25, master's 15, bachelor's 5, otherwise 0. Do not count an in-progress degree as completed. Do not use institutional prestige."
+    },
+    {
+      "id": "teaching",
+      "title": "Teaching",
+      "max_score": 25,
+      "rules": "Award 5 points per distinct documented university course taught or assisted, up to 15. Add 5 points for a concrete documented teaching method with an example of its use. Add 5 points for documented student supervision or mentoring. Do not count plans as completed teaching experience."
+    },
+    {
+      "id": "research",
+      "title": "Research plan",
+      "max_score": 10,
+      "rules": "Award 4 points for an explicitly stated research question, 3 for a concrete proposed method, and 3 for an identified expected contribution. These may be plans, but must be described in the dossier rather than inferred."
+    },
+    {
+      "id": "github",
+      "title": "GitHub / Open Source",
+      "max_score": 5,
+      "rules": "Use imported GitHub snapshot evidence. Award 2 points for at least one original public repository with a documented project purpose; 2 for concrete usage, installation or reproduction instructions in its README; and 1 for an explicit connection between a repository and the candidate's documented research or teaching. Cite the repository and any supporting CV evidence. Do not award points for stars, followers, activity, or forks alone. Ownership does not establish sole authorship. With no imported or sufficient evidence, award only supported points and list the gaps; missing public data does not establish lack of ability."
+    }
+  ]
+}

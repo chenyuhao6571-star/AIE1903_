@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "degree_level": ["Bachelor", "Master", "PhD", "Associate", "Vocational", "Other", "Unknown"],
+  "degree_status": ["Completed", "Ongoing", "Unknown"],
+  "degree_aliases": {
+    "Bachelor": ["B.S.", "BS", "BSc", "B.Sc.", "B.E.", "BE", "BEng", "B.Eng.", "B.A.", "BA", "Bachelor", "Bachelor's", "Bachelors", "学士", "本科"],
+    "Master": ["M.S.", "MS", "MSc", "M.Sc.", "M.E.", "ME", "MEng", "M.Eng.", "M.A.", "MA", "MBA", "MPhil", "M.Phil.", "Master", "Master's", "Masters", "硕士", "碩士"],
+    "PhD": ["Ph.D.", "PhD", "DPhil", "D.Phil.", "Doctor of Philosophy", "博士"],
+    "Associate": ["Associate", "Associate's", "A.S.", "A.A.", "副学士"],
+    "Vocational": ["Vocational", "职业教育", "職業教育"]
+  },
+  "aliases": {
+    "Research interest": {
+      "Artificial Intelligence": ["AI", "Artificial Intelligence (AI)"],
+      "Machine Learning": ["ML"],
+      "Large Language Models": ["LLM", "LLMs", "Large Language Model"],
+      "Software Engineering": ["Software Engineering (SE)"],
+      "Formal Methods": ["Formal Methods (FM)"]
+    },
+    "Institution": {
+      "CUHK-Shenzhen": ["The Chinese University of Hong Kong, Shenzhen", "The Chinese University of Hong Kong (Shenzhen)"],
+      "HKUST": ["The Hong Kong University of Science and Technology", "Hong Kong University of Science and Technology"],
+      "Nanyang Technological University": ["Nanyang Technological University (NTU)"]
+    },
+    "Role": {
+      "Research Assistant Professor": ["Research Asst. Professor"],
+      "Assistant Professor": ["Asst. Professor"],
+      "Postdoctoral Fellow": ["Postdoctoral Research Fellow", "Postdoctoral Researcher"]
+    },
+    "Venue": {
+      "ICSE": ["International Conference on Software Engineering"],
+      "FSE": ["ACM International Conference on the Foundations of Software Engineering"],
+      "IEEE Transactions on Robotics": ["IEEE Transactions on Robotics (T-RO)"]
+    }
+  }
+}

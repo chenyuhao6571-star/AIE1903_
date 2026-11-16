@@ -45,6 +45,27 @@ class JobRequirementsTests(unittest.TestCase):
         self.assertIn("Machine Learning", job.research_areas)
         self.assertIn("AI Agents", job.research_areas)
 
+    def test_required_vs_preferred_degree_is_distinguished(self):
+        job = extract_job_requirements("本科必需，博士优先。研究领域为人工智能。")
+        self.assertEqual(job.minimum_degree, "Bachelor's")
+        self.assertEqual(job.preferred_degree, "PhD")
+        self.assertEqual(job.degree_requirement_kind, "required_and_preferred")
+
+    def test_degree_name_field_is_extracted_without_department(self):
+        facts = build_education_facts(
+            profile(
+                [
+                    {
+                        "degree": "PhD in Computer Science",
+                        "institution": "Stanford University",
+                        "period": "2018-2022",
+                    }
+                ]
+            ),
+            "cand-field",
+        )
+        self.assertEqual(facts.degrees[0].field, "Computer Science")
+
 
 class EducationScoringTests(unittest.TestCase):
     def setUp(self):
@@ -90,6 +111,28 @@ class EducationScoringTests(unittest.TestCase):
         self.assertEqual(assessment.education_score.components["degree_level"].score, 7)
         self.assertEqual(assessment.qualification_check.status, "NOT MET")
         self.assertIs(assessment.qualification_check.minimum_degree_met, False)
+
+    def test_in_progress_doctorate_is_not_counted_as_awarded(self):
+        facts = build_education_facts(
+            profile(
+                [
+                    {
+                        "degree": "PhD",
+                        "institution": "Stanford University",
+                        "department": "Computer Science",
+                        "period": "2024-Present",
+                        "thesis": None,
+                    }
+                ]
+            ),
+            "cand-in-progress",
+        )
+        self.assertEqual(facts.degrees[0].status, "in_progress")
+        assessment = self.scorer.assess(facts, ai_job(), "job-in-progress")
+        self.assertEqual(assessment.qualification_check.minimum_degree_met, False)
+        self.assertEqual(assessment.qualification_check.in_progress_degree, "PhD")
+        self.assertNotEqual(assessment.qualification_check.status, "MET")
+        self.assertNotIn("Highest completed degree: PhD", assessment.qualification_check.explanation)
 
     def test_missing_dissertation_is_not_found_and_not_zero(self):
         facts = build_education_facts(
@@ -308,6 +351,41 @@ class EducationAPITests(unittest.TestCase):
         ids = [j["id"] for j in listed.json()]
         self.assertIn(job_id, ids)
         self.assertTrue(all(j["id"] for j in listed.json()))
+
+    def test_reanalyze_creates_new_version_instead_of_overwriting(self):
+        candidate_id = self.make_candidate()
+        first = self.client.post(
+            "/api/jobs",
+            json={"text": "Applicants must hold a PhD in Computer Science. Research: AI."},
+        ).json()
+        second = self.client.post(
+            "/api/jobs",
+            json={"text": "Applicants must hold a Master's degree in Computer Science."},
+        ).json()
+
+        run1 = self.client.post(
+            f"/api/education/analyze/{candidate_id}", json={"job_id": first["id"]}
+        )
+        self.assertEqual(run1.status_code, 200)
+        self.assertEqual(run1.json()["version"], 1)
+
+        run2 = self.client.post(
+            f"/api/education/analyze/{candidate_id}", json={"job_id": first["id"]}
+        )
+        self.assertEqual(run2.status_code, 200)
+        self.assertEqual(run2.json()["version"], 2)
+
+        latest = self.client.get(f"/api/education/assessment/{candidate_id}")
+        self.assertEqual(latest.status_code, 200)
+        self.assertEqual(latest.json()["version"], 2)
+        self.assertEqual(latest.json()["job_id"], first["id"])
+
+        # A different job starts its own version numbering and becomes current.
+        run3 = self.client.post(
+            f"/api/education/analyze/{candidate_id}", json={"job_id": second["id"]}
+        )
+        self.assertEqual(run3.json()["version"], 1)
+        self.assertEqual(run3.json()["job_id"], second["id"])
 
 
 if __name__ == "__main__":

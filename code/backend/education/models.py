@@ -22,6 +22,7 @@ class Evidence(BaseModel):
     retrieved_at: str | None = None
     confidence: float | None = None
     verified: bool = False
+    verification_status: str = "unverified"
 
 
 class Degree(BaseModel):
@@ -98,6 +99,9 @@ class JobRequirements(BaseModel):
 
     title: str
     minimum_degree: str | None = None
+    preferred_degree: str | None = None
+    degree_requirement_kind: str = "not_stated"
+    degree_evidence_text: str | None = None
     required_fields: list[str] = Field(default_factory=list)
     research_areas: list[str] = Field(default_factory=list)
     required_skills: list[str] = Field(default_factory=list)
@@ -131,6 +135,8 @@ class QualificationCheck(BaseModel):
     status: str = "UNKNOWN"
     explanation: str
     evidence: list[Evidence] = Field(default_factory=list)
+    in_progress_degree: str | None = None
+    preferred_degree: str | None = None
 
 
 class ComponentScore(BaseModel):
@@ -181,6 +187,7 @@ class EducationAssessment(BaseModel):
 
     candidate_id: str
     job_id: str
+    version: int = 1
     candidate_name: str | None = None
     position_title: str | None = None
     qualification_check: QualificationCheck

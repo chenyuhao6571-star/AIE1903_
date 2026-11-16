@@ -1,0 +1,29 @@
+{
+  "title": "Academic qualifications · example rubric",
+  "sections": [
+    {
+      "id": "publications",
+      "title": "Publications",
+      "max_score": 35,
+      "rules": "Award 5 points per unique published or explicitly accepted peer-reviewed journal or conference paper, up to the section maximum. Exclude preprints, submitted work, works in progress, theses and duplicate entries. Do not infer peer-review or acceptance when the document does not establish it. List uncertainty as missing evidence; do not invent journal rankings or citation counts."
+    },
+    {
+      "id": "education",
+      "title": "Education",
+      "max_score": 30,
+      "rules": "Award points for the highest explicitly completed degree only: doctorate 30, master's 20, bachelor's 10, otherwise 0. A degree in progress does not count as completed; use the highest completed degree. If completion is unclear, identify the missing evidence. Do not consider institution prestige, dates as a proxy for age, or nationality."
+    },
+    {
+      "id": "experience",
+      "title": "Experience",
+      "max_score": 30,
+      "rules": "Award 10 points for each distinct documented academic research or university teaching appointment, up to 30. Count research assistant, teaching assistant, research fellow, postdoc and faculty appointments. Exclude degrees alone, memberships, awards and planned appointments. Do not double-count the same appointment repeated across documents. Explain each counted role and cite its source."
+    },
+    {
+      "id": "github",
+      "title": "GitHub / Open Source",
+      "max_score": 5,
+      "rules": "Use imported GitHub snapshot evidence. Award 2 points for at least one original public repository with a documented project purpose; 2 for concrete usage, installation or reproduction instructions in its README; and 1 for an explicit connection between a repository and the candidate's documented research or teaching. Cite the repository and any supporting CV evidence. Do not award points for stars, followers, activity, or forks alone. Ownership does not establish sole authorship. With no imported or sufficient evidence, award only supported points and list the gaps; missing public data does not establish lack of ability."
+    }
+  ]
+}

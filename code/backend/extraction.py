@@ -4,6 +4,7 @@ from zipfile import ZipFile, BadZipFile
 
 from docx import Document
 from pypdf import PdfReader
+from .github import profile_links
 
 MAX_BYTES = 15 * 1024 * 1024
 MAX_TEXT = 120_000
@@ -24,8 +25,17 @@ def extract_document(content: bytes, filename: str) -> list[dict]:
                 raise DocumentError("This PDF is password protected. Upload an unlocked copy.")
             if len(reader.pages) > 80:
                 raise DocumentError("This CV is too long. Upload a document with at most 80 pages.")
-            pages = [{"number": i + 1, "text": p.extract_text() or ""}
-                     for i, p in enumerate(reader.pages)]
+            pages = []
+            for i, page in enumerate(reader.pages):
+                links = []
+                for annotation in page.get('/Annots', []):
+                    try:
+                        action = annotation.get_object().get('/A', {})
+                        if action.get('/S') == '/URI':
+                            links.extend(profile_links(str(action.get('/URI', ''))))
+                    except (AttributeError, TypeError, ValueError):
+                        continue
+                pages.append({'number': i + 1, 'text': page.extract_text() or '', 'links': sorted(set(links))})
         elif suffix == ".docx":
             with ZipFile(BytesIO(content)) as archive:
                 if sum(x.file_size for x in archive.infolist()) > 30 * 1024 * 1024:
@@ -40,6 +50,12 @@ def extract_document(content: bytes, filename: str) -> list[dict]:
                 else:
                     blocks.append(element.text)
             pages = [{"number": i + 1, "text": t} for i, t in enumerate(blocks) if t.strip()]
+            links = []
+            for relation in document.part.rels.values():
+                if relation.is_external and relation.reltype.endswith('/hyperlink'):
+                    links.extend(profile_links(relation.target_ref))
+            if pages and links:
+                pages[0]['links'] = sorted(set(links))
         else:
             raise DocumentError("Upload a PDF or .docx file. Save older .doc files as .docx first.")
     except DocumentError:

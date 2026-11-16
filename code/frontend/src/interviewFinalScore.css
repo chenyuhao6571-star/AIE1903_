@@ -1,0 +1,40 @@
+.interview-final-score { margin-top: 28px; border-top: 1px solid var(--line); padding-top: 24px; }
+.final-score-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.final-score-heading h3 { margin: 0 0 5px; font-size: 20px; font-weight: 600; }
+.final-score-heading > div > span { font-size: 12px; color: var(--muted); }
+.final-score-value { font-size: 36px; line-height: 1.1; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
+.final-score-value small, .final-score-question-value small { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 3px; }
+.final-score-counts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 18px 0 12px; }
+.final-score-counts > span:first-child { font-size: 12px; margin-right: auto; }
+.final-score-list { list-style: none; margin: 0; padding: 0; }
+.final-score-question { padding: 22px 0; border-top: 1px solid var(--line); }
+.final-score-question-heading { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: baseline; gap: 10px; margin-bottom: 16px; }
+.final-score-number { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.final-score-question-heading h4 { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.7; overflow-wrap: anywhere; }
+.final-score-question-value { font-size: 18px; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.final-score-answer h5 { margin: 0 0 8px; font-size: 12px; font-weight: 600; }
+.final-score-excerpt + .final-score-excerpt { margin-top: 14px; }
+.final-score-excerpt p, .final-score-no-answer { margin: 8px 0 0; color: #202b24; font-size: 14px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+.final-score-answer.is-collapsed .final-score-excerpt p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+.final-score-row-actions { margin-top: 8px; }
+.final-score-row-actions:empty { display: none; }
+.final-score-row-actions .text-link { font-size: 12px; }
+.final-score-reasons { margin-top: 16px; }
+.final-score-reasons > summary { display: inline-flex; align-items: center; gap: 8px; list-style: none; padding: 6px 11px; border: 1px solid #d3dad4; border-radius: 4px; font-size: 12px; color: var(--accent); cursor: pointer; }
+.final-score-reasons > summary::-webkit-details-marker { display: none; }
+.final-score-reasons > summary:hover { background: #f2f6f2; }
+.final-score-reasons[open] > summary svg { transform: rotate(180deg); }
+.final-score-reasons-body { margin-top: 14px; }
+.final-score-points { font-size: 12px; color: var(--muted); }
+.final-score-criterion { padding: 14px 0; border-bottom: 1px solid var(--line); }
+.final-score-criterion:last-child { border-bottom: 0; padding-bottom: 0; }
+.final-score-criterion > div:first-child { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
+.final-score-criterion h5 { margin: 0; font-size: 13px; font-weight: 500; line-height: 1.7; overflow-wrap: anywhere; }
+.final-score-criterion p { margin: 6px 0 0; font-size: 13px; color: #202b24; line-height: 1.8; overflow-wrap: anywhere; }
+.final-score-empty { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; font-size: 13px; }
+.final-score-empty > span { display: inline-flex; align-items: center; gap: 8px; }
+@media (max-width: 700px) {
+  .final-score-question-heading { gap: 8px; grid-template-columns: 18px minmax(0, 1fr) auto; }
+  .final-score-criterion > div:first-child { flex-wrap: wrap; gap: 6px; }
+  .final-score-counts > span:first-child { width: 100%; }
+}

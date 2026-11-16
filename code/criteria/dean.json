@@ -1,0 +1,35 @@
+{
+  "title": "Dean",
+  "sections": [
+    {
+      "id": "leadership",
+      "title": "Leadership",
+      "max_score": 40,
+      "rules": "Award 10 points per distinct documented leadership appointment with explicit responsibilities, up to 40. Examples include dean, associate dean, department head, program director or research center director. Do not count a faculty title alone as leadership or duplicate one appointment across documents."
+    },
+    {
+      "id": "administration",
+      "title": "Administration",
+      "max_score": 25,
+      "rules": "Award 5 points each for documented responsibility in these distinct areas: budgeting, staff management, academic planning, accreditation or program review, and partnerships. Cite explicit responsibilities and do not infer them from a job title."
+    },
+    {
+      "id": "education",
+      "title": "Education",
+      "max_score": 15,
+      "rules": "Award 15 for an explicitly completed doctorate, 10 for a completed master's, 5 for a completed bachelor's, otherwise 0. Use only the highest completed degree. Do not consider institutional prestige."
+    },
+    {
+      "id": "contributions",
+      "title": "Academic contributions",
+      "max_score": 15,
+      "rules": "Award 5 points for each distinct documented completed contribution to curriculum development, faculty mentoring, research program development or university service, up to the section maximum. Count each contribution once; do not infer impact or use publication counts as a proxy for leadership."
+    },
+    {
+      "id": "github",
+      "title": "GitHub / Open Source",
+      "max_score": 5,
+      "rules": "Use imported GitHub snapshot evidence. Award 2 points for at least one original public repository with a documented project purpose; 2 for concrete usage, installation or reproduction instructions in its README; and 1 for an explicit connection between a repository and the candidate's documented research or teaching. Cite the repository and any supporting CV evidence. Do not award points for stars, followers, activity, or forks alone. Ownership does not establish sole authorship. With no imported or sufficient evidence, award only supported points and list the gaps; missing public data does not establish lack of ability."
+    }
+  ]
+}
